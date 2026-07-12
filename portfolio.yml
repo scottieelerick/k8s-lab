@@ -1,0 +1,681 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: portfolio-html
+  labels:
+    app: portfolio
+data:
+  index.html: |
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Scottie | Junior Engineer Candidate — Defense Unicorns</title>
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+      <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+          --bg:          #080c18;
+          --bg-card:     #0d1424;
+          --bg-hover:    #111b2e;
+          --border:      rgba(124, 58, 237, 0.18);
+          --border-hi:   rgba(124, 58, 237, 0.55);
+          --purple:      #8b5cf6;
+          --purple-lo:   #6d28d9;
+          --amber:       #f59e0b;
+          --green:       #10b981;
+          --text:        #dde4f0;
+          --text-dim:    #94a3b8;
+          --text-muted:  #4b5a72;
+          --mono:        'JetBrains Mono', monospace;
+          --display:     'Space Grotesk', sans-serif;
+          --body:        'Inter', sans-serif;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+          font-family: var(--body);
+          background: var(--bg);
+          color: var(--text);
+          line-height: 1.7;
+          min-height: 100vh;
+        }
+
+        /* ── Header ─────────────────────────────────────── */
+        header {
+          position: sticky;
+          top: 0;
+          z-index: 100;
+          background: rgba(8, 12, 24, 0.92);
+          backdrop-filter: blur(12px);
+          border-bottom: 1px solid var(--border);
+          padding: 0.85rem 2rem;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+        }
+
+        .header-name {
+          font-family: var(--display);
+          font-weight: 700;
+          font-size: 1rem;
+          letter-spacing: 0.03em;
+          color: var(--text);
+        }
+
+        .header-name span { color: var(--purple); }
+
+        .live-badge {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+          font-family: var(--mono);
+          font-size: 0.68rem;
+          color: var(--green);
+          letter-spacing: 0.08em;
+          border: 1px solid rgba(16, 185, 129, 0.3);
+          padding: 0.3rem 0.75rem;
+          border-radius: 2px;
+        }
+
+        .pulse {
+          width: 7px; height: 7px;
+          background: var(--green);
+          border-radius: 50%;
+          animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+          0%, 100% { opacity: 1; transform: scale(1); }
+          50%       { opacity: 0.4; transform: scale(0.8); }
+        }
+
+        /* ── Layout ─────────────────────────────────────── */
+        main { max-width: 900px; margin: 0 auto; padding: 3rem 2rem 5rem; }
+
+        section { margin-bottom: 4rem; }
+
+        .eyebrow {
+          font-family: var(--mono);
+          font-size: 0.65rem;
+          letter-spacing: 0.18em;
+          text-transform: uppercase;
+          color: var(--amber);
+          margin-bottom: 1rem;
+          display: flex;
+          align-items: center;
+          gap: 0.75rem;
+        }
+
+        .eyebrow::after {
+          content: '';
+          flex: 1;
+          height: 1px;
+          background: var(--border);
+        }
+
+        /* ── Hero ───────────────────────────────────────── */
+        .hero { padding-top: 1rem; }
+
+        .hero h1 {
+          font-family: var(--display);
+          font-size: clamp(2.4rem, 6vw, 3.8rem);
+          font-weight: 700;
+          line-height: 1.1;
+          letter-spacing: -0.02em;
+          margin-bottom: 0.5rem;
+        }
+
+        .hero h1 .accent { color: var(--purple); }
+
+        .hero-title {
+          font-family: var(--mono);
+          font-size: 0.85rem;
+          color: var(--text-dim);
+          margin-bottom: 1.25rem;
+          letter-spacing: 0.04em;
+        }
+
+        .hero-tagline {
+          font-size: 1.05rem;
+          color: var(--text-dim);
+          max-width: 560px;
+          margin-bottom: 1.75rem;
+          line-height: 1.8;
+        }
+
+        .hero-tagline strong { color: var(--text); }
+
+        .btn-github {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.5rem;
+          font-family: var(--mono);
+          font-size: 0.78rem;
+          letter-spacing: 0.06em;
+          color: var(--purple);
+          border: 1px solid var(--border-hi);
+          padding: 0.55rem 1.1rem;
+          text-decoration: none;
+          border-radius: 2px;
+          transition: background 0.2s, border-color 0.2s;
+        }
+
+        .btn-github:hover { background: rgba(139,92,246,0.08); border-color: var(--purple); }
+
+        /* ── Status Panel ───────────────────────────────── */
+        .status-panel {
+          border: 1px solid var(--border-hi);
+          border-left: 3px solid var(--purple);
+          background: var(--bg-card);
+          padding: 1.5rem;
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+          gap: 1.25rem;
+        }
+
+        .stat-block { display: flex; flex-direction: column; gap: 0.3rem; }
+
+        .stat-label {
+          font-family: var(--mono);
+          font-size: 0.6rem;
+          letter-spacing: 0.15em;
+          text-transform: uppercase;
+          color: var(--text-muted);
+        }
+
+        .stat-value {
+          font-family: var(--mono);
+          font-size: 1.1rem;
+          font-weight: 600;
+          color: var(--green);
+        }
+
+        .stat-value.amber { color: var(--amber); }
+        .stat-value.purple { color: var(--purple); }
+
+        /* ── Cards ──────────────────────────────────────── */
+        .card-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+          gap: 1rem;
+        }
+
+        .card {
+          background: var(--bg-card);
+          border: 1px solid var(--border);
+          padding: 1.4rem;
+          transition: border-color 0.2s, background 0.2s;
+        }
+
+        .card:hover { border-color: var(--border-hi); background: var(--bg-hover); }
+
+        .card-icon {
+          font-size: 1.4rem;
+          margin-bottom: 0.75rem;
+          display: block;
+        }
+
+        .card h3 {
+          font-family: var(--display);
+          font-size: 0.95rem;
+          font-weight: 600;
+          margin-bottom: 0.4rem;
+          color: var(--text);
+        }
+
+        .card p {
+          font-size: 0.85rem;
+          color: var(--text-dim);
+          line-height: 1.65;
+        }
+
+        .card p strong { color: var(--amber); font-weight: 500; }
+
+        /* ── Tags ───────────────────────────────────────── */
+        .tag-group { margin-bottom: 1.1rem; }
+
+        .tag-group-label {
+          font-family: var(--mono);
+          font-size: 0.62rem;
+          letter-spacing: 0.12em;
+          text-transform: uppercase;
+          color: var(--text-muted);
+          margin-bottom: 0.5rem;
+        }
+
+        .tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+
+        .tag {
+          font-family: var(--mono);
+          font-size: 0.72rem;
+          padding: 0.3rem 0.65rem;
+          border-radius: 2px;
+          letter-spacing: 0.04em;
+        }
+
+        .tag.purple { background: rgba(139,92,246,0.12); color: var(--purple); border: 1px solid rgba(139,92,246,0.25); }
+        .tag.amber  { background: rgba(245,158,11,0.1);  color: var(--amber);  border: 1px solid rgba(245,158,11,0.25); }
+        .tag.green  { background: rgba(16,185,129,0.1);  color: var(--green);  border: 1px solid rgba(16,185,129,0.25); }
+
+        /* ── Projects ───────────────────────────────────── */
+        .project {
+          border: 1px solid var(--border);
+          background: var(--bg-card);
+          padding: 1.6rem;
+          margin-bottom: 1rem;
+          transition: border-color 0.2s;
+        }
+
+        .project:hover { border-color: var(--border-hi); }
+
+        .project-header {
+          display: flex;
+          align-items: flex-start;
+          justify-content: space-between;
+          gap: 1rem;
+          margin-bottom: 0.75rem;
+          flex-wrap: wrap;
+        }
+
+        .project h3 {
+          font-family: var(--display);
+          font-size: 1.05rem;
+          font-weight: 600;
+        }
+
+        .project-badge {
+          font-family: var(--mono);
+          font-size: 0.6rem;
+          letter-spacing: 0.1em;
+          text-transform: uppercase;
+          padding: 0.25rem 0.6rem;
+          border-radius: 2px;
+          white-space: nowrap;
+        }
+
+        .badge-live   { background: rgba(16,185,129,0.12); color: var(--green); border: 1px solid rgba(16,185,129,0.3); }
+        .badge-active { background: rgba(139,92,246,0.12); color: var(--purple); border: 1px solid rgba(139,92,246,0.25); }
+        .badge-built  { background: rgba(245,158,11,0.1); color: var(--amber); border: 1px solid rgba(245,158,11,0.25); }
+
+        .project p { font-size: 0.87rem; color: var(--text-dim); line-height: 1.7; margin-bottom: 0.85rem; }
+        .project p strong { color: var(--text); font-weight: 500; }
+
+        /* ── Terminal Block ─────────────────────────────── */
+        .terminal {
+          background: #060912;
+          border: 1px solid var(--border);
+          border-left: 3px solid var(--amber);
+          padding: 1.4rem 1.6rem;
+          font-family: var(--mono);
+          font-size: 0.78rem;
+          line-height: 2;
+          color: var(--text-dim);
+          overflow-x: auto;
+        }
+
+        .terminal .cmd  { color: var(--green); }
+        .terminal .val  { color: var(--text); }
+        .terminal .cmt  { color: var(--text-muted); }
+        .terminal .hi   { color: var(--amber); }
+
+        /* ── Footer ─────────────────────────────────────── */
+        footer {
+          border-top: 1px solid var(--border);
+          margin-top: 5rem;
+          padding: 2rem;
+          text-align: center;
+          font-family: var(--mono);
+          font-size: 0.7rem;
+          color: var(--text-muted);
+          letter-spacing: 0.06em;
+        }
+
+        footer a { color: var(--purple); text-decoration: none; }
+        footer a:hover { text-decoration: underline; }
+
+        @media (max-width: 600px) {
+          header { padding: 0.75rem 1rem; }
+          main   { padding: 2rem 1rem 4rem; }
+          .hero h1 { font-size: 2.2rem; }
+        }
+      </style>
+    </head>
+
+    <body>
+
+      <header>
+        <div class="header-name">Rich <span>·</span> Defense Unicorns Candidate</div>
+        <div class="live-badge">
+          <div class="pulse"></div>
+          LIVE &nbsp;·&nbsp; KUBERNETES &nbsp;·&nbsp; 3 REPLICAS
+        </div>
+      </header>
+
+      <main>
+
+        <!-- ── Hero ──────────────────────────────────── -->
+        <section class="hero">
+          <div class="eyebrow">Operator Profile</div>
+          <h1>Built to <span class="accent">Deploy.</span><br>Ready to Serve.</h1>
+          <div class="hero-title">Junior Engineer / Tier 1 Helpdesk · Shipmates Team Candidate</div>
+          <p class="hero-tagline">
+            A self-taught builder who learns by doing —
+            <strong>this page is running on a local Kubernetes cluster I stood up from scratch.</strong>
+            I want to bring that same hands-on drive to the team helping warfighters
+            get mission-critical software across the finish line.
+          </p>
+          <a class="btn-github" href="https://github.com/scottieelerick" target="_blank">
+            ⌥ &nbsp; github.com/scottieelerick
+          </a>
+        </section>
+
+        <!-- ── System Status ──────────────────────────── -->
+        <section>
+          <div class="eyebrow">Live System Status</div>
+          <div class="status-panel">
+            <div class="stat-block">
+              <div class="stat-label">Pod Health</div>
+              <div class="stat-value">NOMINAL</div>
+            </div>
+            <div class="stat-block">
+              <div class="stat-label">Replicas</div>
+              <div class="stat-value amber">3 / 3</div>
+            </div>
+            <div class="stat-block">
+              <div class="stat-label">Session Uptime</div>
+              <div class="stat-value purple" id="uptime">00:00:00</div>
+            </div>
+            <div class="stat-block">
+              <div class="stat-label">Probe Status</div>
+              <div class="stat-value">PASSING</div>
+            </div>
+            <div class="stat-block">
+              <div class="stat-label">Service Type</div>
+              <div class="stat-value amber">LoadBalancer</div>
+            </div>
+            <div class="stat-block">
+              <div class="stat-label">Image</div>
+              <div class="stat-value purple">nginx:alpine</div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ── Mission Alignment ─────────────────────── -->
+        <section>
+          <div class="eyebrow">Mission Alignment — Why Defense Unicorns</div>
+          <div class="card-grid">
+            <div class="card">
+              <span class="card-icon">📦</span>
+              <h3>Zarf & Air-Gapped K8s</h3>
+              <p>
+                I've been studying <strong>Zarf</strong> and how UDS solves the last-mile problem
+                of getting containerized software into disconnected, classified environments.
+                That's the exact problem space I want to work in.
+              </p>
+            </div>
+            <div class="card">
+              <span class="card-icon">🛡️</span>
+              <h3>Open Source at the Edge</h3>
+              <p>
+                Software that warfighters depend on should be <strong>auditable, maintainable,
+                and owned by the mission</strong> — not a vendor. That philosophy is why I built
+                DigTrack as fully open-source, on-premises, with no SaaS lock-in.
+              </p>
+            </div>
+            <div class="card">
+              <span class="card-icon">🤝</span>
+              <h3>The Shipmates Team</h3>
+              <p>
+                Tier 1 support at a company like DU isn't answering basic tickets —
+                it's helping operators of <strong>complex K8s-based tooling</strong> succeed
+                under pressure. I'm building the technical foundation to do that well.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <!-- ── Technical Stack ───────────────────────── -->
+        <section>
+          <div class="eyebrow">Technical Stack</div>
+
+          <div class="tag-group">
+            <div class="tag-group-label">Container / Orchestration</div>
+            <div class="tags">
+              <span class="tag purple">Docker</span>
+              <span class="tag purple">Kubernetes</span>
+              <span class="tag purple">kubectl</span>
+              <span class="tag purple">YAML Manifests</span>
+              <span class="tag purple">ConfigMaps</span>
+              <span class="tag purple">Health Probes</span>
+            </div>
+          </div>
+
+          <div class="tag-group">
+            <div class="tag-group-label">Development</div>
+            <div class="tags">
+              <span class="tag amber">React</span>
+              <span class="tag amber">TypeScript</span>
+              <span class="tag amber">Node.js</span>
+              <span class="tag amber">Fastify</span>
+              <span class="tag amber">PostgreSQL</span>
+              <span class="tag amber">Drizzle ORM</span>
+            </div>
+          </div>
+
+          <div class="tag-group">
+            <div class="tag-group-label">Operations & Tooling</div>
+            <div class="tags">
+              <span class="tag green">Git / GitHub</span>
+              <span class="tag green">Bash Scripting</span>
+              <span class="tag green">Linux / WSL2</span>
+              <span class="tag green">TCP/IP Networking</span>
+              <span class="tag green">nmap</span>
+              <span class="tag green">SSH</span>
+            </div>
+          </div>
+
+          <div class="tag-group">
+            <div class="tag-group-label">Currently Learning</div>
+            <div class="tags">
+              <span class="tag purple">GitOps</span>
+              <span class="tag purple">Helm</span>
+              <span class="tag purple">K8s RBAC</span>
+              <span class="tag amber">Zarf</span>
+              <span class="tag amber">UDS</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- ── Active Deployments ────────────────────── -->
+        <section>
+          <div class="eyebrow">Active Deployments — Projects</div>
+
+          <div class="project">
+            <div class="project-header">
+              <h3>DigTrack — Excavation Management Platform</h3>
+              <span class="project-badge badge-active">In Production</span>
+            </div>
+            <p>
+              A <strong>full-stack field management system</strong> built from scratch for
+              AB&amp;H Excavating — job tracking, crew scheduling, equipment maintenance,
+              invoicing, certified payroll (WH-347), OSHA safety templates, and a mobile
+              PWA for field crews. Built as a <strong>$20,000 one-time-purchase</strong>
+              alternative to Procore with zero SaaS dependency or recurring license fees.
+            </p>
+            <div class="tags">
+              <span class="tag purple">React / Vite / TypeScript</span>
+              <span class="tag purple">Fastify</span>
+              <span class="tag purple">PostgreSQL 16</span>
+              <span class="tag amber">On-Premises</span>
+              <span class="tag green">Open Source</span>
+            </div>
+          </div>
+
+          <div class="project">
+            <div class="project-header">
+              <h3>Kubernetes Home Lab — You're Looking at It</h3>
+              <span class="project-badge badge-live">Live Now</span>
+            </div>
+            <p>
+              This page is served by <strong>nginx:alpine running inside a local Kubernetes
+              cluster</strong> stood up on Docker Desktop. The HTML is stored in a ConfigMap,
+              mounted as a volume into 3 replicas with liveness and readiness probes.
+              The cluster can be torn down completely and <strong>rebuilt from the Git repo</strong>
+              in under two minutes — the repo is the source of truth.
+            </p>
+            <div class="tags">
+              <span class="tag purple">Kubernetes</span>
+              <span class="tag purple">ConfigMap</span>
+              <span class="tag purple">nginx:alpine</span>
+              <span class="tag green">GitHub</span>
+              <span class="tag amber">GitOps</span>
+            </div>
+          </div>
+
+          <div class="project">
+            <div class="project-header">
+              <h3>No Strokes Golf Co. — Apparel Brand</h3>
+              <span class="project-badge badge-built">Founded</span>
+            </div>
+            <p>
+              Founded, designed, and launched a golf apparel brand from the ground up —
+              product development, brand identity, marketing, and operations.
+              Demonstrates <strong>ownership mindset and comfort building things from zero</strong>
+              without a playbook.
+            </p>
+            <div class="tags">
+              <span class="tag amber">Entrepreneurship</span>
+              <span class="tag amber">Product Development</span>
+              <span class="tag green">Brand Operations</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- ── Architecture Callout ──────────────────── -->
+        <section>
+          <div class="eyebrow">How This Page Works — K8s Architecture</div>
+          <div class="terminal">
+<span class="cmt"># Everything in this file is reproducible from the Git repo</span>
+
+<span class="cmd">kubectl get all</span>
+<span class="val">NAME                             READY   STATUS    RESTARTS</span>
+<span class="hi">pod/portfolio-xxxxxxxxx-aaaaa     1/1     Running   0</span>
+<span class="hi">pod/portfolio-xxxxxxxxx-bbbbb     1/1     Running   0</span>
+<span class="hi">pod/portfolio-xxxxxxxxx-ccccc     1/1     Running   0</span>
+<span class="val">service/portfolio-service         LoadBalancer   &lt;pending&gt;   80:30080/TCP</span>
+<span class="val">deployment.apps/portfolio         3/3     3            3</span>
+
+<span class="cmt"># Delete a pod — Kubernetes self-heals in seconds</span>
+<span class="cmd">kubectl delete pod portfolio-xxxxxxxxx-aaaaa</span>
+<span class="val">pod "portfolio-xxxxxxxxx-aaaaa" deleted</span>
+<span class="cmd">kubectl get pods</span>
+<span class="hi">portfolio-xxxxxxxxx-ddddd     0/1   ContainerCreating   0   2s</span>
+
+<span class="cmt"># Scale up live — no downtime</span>
+<span class="cmd">kubectl scale deployment portfolio --replicas=5</span>
+<span class="val">deployment.apps/portfolio scaled</span>
+
+<span class="cmt"># The whole lab rebuilds from one command</span>
+<span class="cmd">kubectl apply -f manifests/</span>
+<span class="val">configmap/portfolio-html created</span>
+<span class="val">deployment.apps/portfolio created</span>
+<span class="val">service/portfolio-service created</span>
+          </div>
+        </section>
+
+      </main>
+
+      <footer>
+        <p>
+          Deployed on Kubernetes &nbsp;·&nbsp; nginx:alpine &nbsp;·&nbsp; 3 replicas &nbsp;·&nbsp; LoadBalancer service
+          <br><br>
+          <a href="https://github.com/scottieelerick" target="_blank">github.com/scottieelerick</a>
+          &nbsp;·&nbsp;
+          Built for the Defense Unicorns Shipmates Team
+        </p>
+      </footer>
+
+      <script>
+        // Live session uptime counter
+        const start = Date.now();
+        function tick() {
+          const s = Math.floor((Date.now() - start) / 1000);
+          const h = String(Math.floor(s / 3600)).padStart(2, '0');
+          const m = String(Math.floor((s % 3600) / 60)).padStart(2, '0');
+          const sec = String(s % 60).padStart(2, '0');
+          document.getElementById('uptime').textContent = h + ':' + m + ':' + sec;
+        }
+        setInterval(tick, 1000);
+        tick();
+      </script>
+
+    </body>
+    </html>
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: portfolio
+  labels:
+    app: portfolio
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: portfolio
+  template:
+    metadata:
+      labels:
+        app: portfolio
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:alpine
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - name: html-vol
+          mountPath: /usr/share/nginx/html
+        resources:
+          requests:
+            memory: "32Mi"
+            cpu: "50m"
+          limits:
+            memory: "64Mi"
+            cpu: "100m"
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 80
+          initialDelaySeconds: 5
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 80
+          initialDelaySeconds: 3
+          periodSeconds: 5
+      volumes:
+      - name: html-vol
+        configMap:
+          name: portfolio-html
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: portfolio-service
+  labels:
+    app: portfolio
+spec:
+  type: LoadBalancer
+  selector:
+    app: portfolio
+  ports:
+  - port: 80
+    targetPort: 80
